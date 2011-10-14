@@ -13,6 +13,8 @@ ID3D10RenderTargetView* pRenderTargetView = NULL;
 LPDIRECTSOUND8 directSoundDevice;
 LPDIRECTSOUNDBUFFER directSoundBufferSample = NULL;
 LPDIRECTSOUNDBUFFER directSoundBufferRunLikeHell = NULL;
+// DirectInput global vars
+LPDIRECTINPUT8 directInputObject;
 
 // forward declarations
 bool InitWindow( HINSTANCE hInstance, int width, int height );
@@ -29,7 +31,10 @@ int APIENTRY _tWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpC
 	// Initialize the D3D Device
 	if(!InitDirect3D(wndHandle, width, height)){return false;}
 
-	// Initialize the D3D Device
+	// Initialize the Direct Input Device
+	if FAILED(DirectInput8Create(hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&directInputObject, NULL)){debug(L"Failed");return false;}
+
+	// Initialize the Direct Sound Device
 	HRESULT hr = DirectSoundCreate8(NULL, &directSoundDevice, NULL);
 	if(directSoundDevice != NULL)
 	{
