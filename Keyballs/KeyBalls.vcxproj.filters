@@ -13,6 +13,9 @@
     <ClCompile Include="graphics.cpp">
       <Filter>Source Code</Filter>
     </ClCompile>
+    <ClCompile Include="debug.cpp">
+      <Filter>Source Code</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio.h">
@@ -25,6 +28,9 @@
       <Filter>Headers</Filter>
     </ClInclude>
     <ClInclude Include="graphics.h">
+      <Filter>Headers</Filter>
+    </ClInclude>
+    <ClInclude Include="debug.h">
       <Filter>Headers</Filter>
     </ClInclude>
   </ItemGroup>

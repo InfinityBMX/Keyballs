@@ -36,7 +36,8 @@ int APIENTRY _tWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpC
 		if FAILED(hr){return false;}
 	}
 
-	loadFileIntoDefaultBuffer(L"sample.wav", directSoundBuffer, directSoundDevice);
+	hr = loadFileIntoDefaultBuffer(L"sample.wav", directSoundBuffer, directSoundDevice);
+	if (hr != 0){return false;}
 
 	//TCHAR temp[20]={0};
 	//wsprintf(temp,TEXT("Bytes = %u"),bytesRead);
@@ -83,7 +84,7 @@ bool InitWindow( HINSTANCE hInstance, int width, int height )
 	wcex.hCursor = LoadCursor( NULL, IDC_ARROW); // the default cursor to use
 	wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW+1); // the background color
 	wcex.lpszMenuName = NULL; // the resource name for the menu
-	wcex.lpszClassName = TEXT( "DirectXExample" ); // the class name being created
+	wcex.lpszClassName = TEXT( "KeyBalls" ); // the class name being created
 	wcex.hIconSm = 0; // the handle to the small icon
 	RegisterClassEx(&wcex);
 	//Resize the window
@@ -91,8 +92,8 @@ bool InitWindow( HINSTANCE hInstance, int width, int height )
 	AdjustWindowRect(&rect, WS_OVERLAPPEDWINDOW, FALSE);
 
 	// create the window from the class above
-	wndHandle = CreateWindow( TEXT("DirectXExample"),
-					TEXT("DirectXExample"),
+	wndHandle = CreateWindow( TEXT("KeyBalls"),
+					TEXT("KeyBalls"),
 					WS_OVERLAPPEDWINDOW,
 					CW_USEDEFAULT,
 					CW_USEDEFAULT,

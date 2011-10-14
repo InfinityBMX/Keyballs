@@ -80,12 +80,14 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="audio.cpp" />
+    <ClCompile Include="debug.cpp" />
     <ClCompile Include="graphics.cpp" />
     <ClCompile Include="SDKwavefile.cpp" />
     <ClCompile Include="winmain.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio.h" />
+    <ClInclude Include="debug.h" />
     <ClInclude Include="graphics.h" />
     <ClInclude Include="includes.h" />
     <ClInclude Include="SDKwavefile.h" />

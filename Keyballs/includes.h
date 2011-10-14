@@ -9,4 +9,5 @@
 #include "SDKwavefile.h"
 #include "audio.h"
 #include "graphics.h"
+#include "debug.h"
 #endif
