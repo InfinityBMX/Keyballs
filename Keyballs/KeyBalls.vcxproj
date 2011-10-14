@@ -10,6 +10,20 @@
       <Platform>Win32</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="audio\audio.cpp" />
+    <ClCompile Include="audio\SDKwavefile.cpp" />
+    <ClCompile Include="graphics\graphics.cpp" />
+    <ClCompile Include="main\winmain.cpp" />
+    <ClCompile Include="util\debug.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="audio\audio.h" />
+    <ClInclude Include="audio\SDKwavefile.h" />
+    <ClInclude Include="graphics\graphics.h" />
+    <ClInclude Include="main\includes.h" />
+    <ClInclude Include="util\debug.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{987BB104-DA1B-41F8-9506-DD2ADC7629F0}</ProjectGuid>
     <Keyword>Win32Proj</Keyword>
@@ -78,20 +92,6 @@
       <AdditionalDependencies>d3d10.lib;dsound.lib;DXUT.lib;WinMM.lib;dxerr.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClCompile Include="audio.cpp" />
-    <ClCompile Include="debug.cpp" />
-    <ClCompile Include="graphics.cpp" />
-    <ClCompile Include="SDKwavefile.cpp" />
-    <ClCompile Include="winmain.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="audio.h" />
-    <ClInclude Include="debug.h" />
-    <ClInclude Include="graphics.h" />
-    <ClInclude Include="includes.h" />
-    <ClInclude Include="SDKwavefile.h" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
