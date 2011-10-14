@@ -2,44 +2,44 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="audio.cpp">
-      <Filter>Source Code</Filter>
-    </ClCompile>
-    <ClCompile Include="winmain.cpp">
-      <Filter>Source Code</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="SDKwavefile.cpp">
-      <Filter>Source Code</Filter>
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="winmain.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="graphics.cpp">
-      <Filter>Source Code</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="debug.cpp">
-      <Filter>Source Code</Filter>
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio.h">
-      <Filter>Headers</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="SDKwavefile.h">
-      <Filter>Headers</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="includes.h">
-      <Filter>Headers</Filter>
-    </ClInclude>
-    <ClInclude Include="graphics.h">
-      <Filter>Headers</Filter>
+      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="debug.h">
-      <Filter>Headers</Filter>
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <Filter Include="Headers">
-      <UniqueIdentifier>{c4fdeb05-96a1-4dd4-a6d8-edf5a2b975c8}</UniqueIdentifier>
+    <Filter Include="Header Files">
+      <UniqueIdentifier>{e024238e-4fff-4833-8652-ca5350b294a4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Code">
-      <UniqueIdentifier>{d5c041f7-88de-40d7-97e8-0d8dd9e42fba}</UniqueIdentifier>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{421dd8e5-7ce0-4d41-a049-87d20d526997}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

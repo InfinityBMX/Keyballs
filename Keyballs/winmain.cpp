@@ -11,7 +11,8 @@ IDXGISwapChain* pSwapChain = NULL;
 ID3D10RenderTargetView* pRenderTargetView = NULL;
 // DirectSound global vars
 LPDIRECTSOUND8 directSoundDevice;
-LPDIRECTSOUNDBUFFER directSoundBuffer = NULL;
+LPDIRECTSOUNDBUFFER directSoundBufferSample = NULL;
+LPDIRECTSOUNDBUFFER directSoundBufferRunLikeHell = NULL;
 
 // forward declarations
 bool InitWindow( HINSTANCE hInstance, int width, int height );
@@ -36,14 +37,11 @@ int APIENTRY _tWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpC
 		if FAILED(hr){return false;}
 	}
 
-	hr = loadFileIntoDefaultBuffer(L"sample.wav", directSoundBuffer, directSoundDevice);
-	if (hr != 0){return false;}
+	if(loadFileIntoDefaultBuffer(L"sample.wav", directSoundBufferSample, directSoundDevice) != BUFFSETUP_SUCCESS){return false;}
+	if(loadFileIntoDefaultBuffer(L"Run Like Hell.wav", directSoundBufferRunLikeHell, directSoundDevice) != BUFFSETUP_SUCCESS){return false;}
 
-	//TCHAR temp[20]={0};
-	//wsprintf(temp,TEXT("Bytes = %u"),bytesRead);
-	//MessageBox(NULL,temp, TEXT("message"),MB_OK);
-
-	directSoundBuffer->Play(0,0,DSBPLAY_LOOPING);
+	directSoundBufferSample->Play(0,0,DSBPLAY_LOOPING);
+	directSoundBufferRunLikeHell->Play(0,0,0);
 
 	// main message loop:
 	MSG msg = {0};

@@ -1,10 +1,18 @@
 #ifndef AUDIO_H
 #define AUDIO_H
 
-#define BUFFSETUP_SUCCESS 0
-#define BUFFSETUP_FILE_OPEN_FAIL 1
+// Audio Return Codes
+typedef short ARESULT;
+#define BUFFSETUP_SUCCESS (ARESULT)0
+#define BUFFSETUP_FILE_OPEN_FAIL (ARESULT)1
+#define BUFFSETUP_BUFFERDESC_FAIL (ARESULT)2
+#define BUFFSETUP_CREATEBUFF_FAIL (ARESULT)3
+#define BUFFSETUP_LOCKBUFF_FAIL (ARESULT)4
+#define BUFFSETUP_RESETFILE_FAIL (ARESULT)5
+#define BUFFSETUP_READFILE_FAIL (ARESULT)6
+#define BUFFSETUP_UNLOCKBUFF_FAIL (ARESULT)7
 
-int loadFileIntoDefaultBuffer( LPWSTR filename, LPDIRECTSOUNDBUFFER &directSoundBuffer, LPDIRECTSOUND8 &directSoundDevice );
+ARESULT loadFileIntoDefaultBuffer( LPWSTR filename, LPDIRECTSOUNDBUFFER &directSoundBuffer, LPDIRECTSOUND8 &directSoundDevice );
 WAVEFORMATEX getDefaultWaveFormat();
-void getBufferDescForFilesize(DWORD filesize, DSBUFFERDESC &dbsc);
+ARESULT getBufferDescForFilesize(DWORD filesize, DSBUFFERDESC* dsbd, WAVEFORMATEX* wfx);
 #endif
