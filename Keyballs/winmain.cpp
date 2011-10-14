@@ -36,43 +36,7 @@ int APIENTRY _tWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpC
 		if FAILED(hr){return false;}
 	}
 
-	WAVEFORMATEX wfx;
-	DSBUFFERDESC dsbd;
-	CWaveFile *waveFile = new CWaveFile();
-
-	ZeroMemory(&dsbd, sizeof(DSBUFFERDESC));
-	ZeroMemory(&wfx, sizeof(WAVEFORMATEX));
-
-	wfx.wFormatTag = (WORD) WAVE_FORMAT_PCM;
-	wfx.nChannels = 2;
-	wfx.nSamplesPerSec = 44100;
-	wfx.wBitsPerSample = 16;
-	wfx.nBlockAlign = (WORD) (wfx.wBitsPerSample / 8 * wfx.nChannels);
-	wfx.nAvgBytesPerSec = (DWORD) (wfx.nSamplesPerSec * wfx.nBlockAlign);
-
-	dsbd.dwSize = sizeof(DSBUFFERDESC);
-	dsbd.dwFlags = 0;
-	dsbd.dwBufferBytes = 1330000;
-	dsbd.guid3DAlgorithm = GUID_NULL;
-	dsbd.lpwfxFormat = &wfx;
-
-	hr = directSoundDevice->CreateSoundBuffer(&dsbd, &directSoundBuffer, NULL);
-	if FAILED(hr){return false;}
-	
-	waveFile->Open(L"sample.wav", NULL, WAVEFILE_READ);
-	if(waveFile->GetSize() == 0){return false;}
-
-	VOID* buffer = NULL;
-	DWORD bufferSize = 0;
-	hr = directSoundBuffer->Lock(0,waveFile->GetSize(),&buffer,&bufferSize,NULL,NULL,DSBLOCK_ENTIREBUFFER);
-	if FAILED(hr){return false;}
-
-	DWORD bytesRead = 0;
-	waveFile->ResetFile();
-	hr = waveFile->Read((BYTE*) buffer, bufferSize, &bytesRead);
-	if FAILED(hr){return false;}
-
-	hr = directSoundBuffer->Unlock(&buffer,bufferSize,NULL,NULL);
+	loadFileIntoDefaultBuffer(L"sample.wav", directSoundBuffer, directSoundDevice);
 
 	//TCHAR temp[20]={0};
 	//wsprintf(temp,TEXT("Bytes = %u"),bytesRead);

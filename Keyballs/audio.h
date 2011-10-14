@@ -1,4 +1,5 @@
 #ifndef AUDIO_H
 #define AUDIO_H
-LPDIRECTSOUNDBUFFER loadFileIntoDefaultBuffer( LPWSTR filename );
+int loadFileIntoDefaultBuffer( LPWSTR filename, LPDIRECTSOUNDBUFFER &directSoundBuffer, LPDIRECTSOUND8 &directSoundDevice );
+
 #endif
