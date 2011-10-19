@@ -1,5 +1,16 @@
 #include "../main/includes.h"
 
+LPDIRECTSOUND8 directSoundDevice;
+
+ARESULT InitSound(HWND hWnd)
+{
+	if FAILED(DirectSoundCreate8(NULL, &directSoundDevice, NULL))
+		return AUDIOINIT_FAIL;
+	if FAILED(directSoundDevice->SetCooperativeLevel(hWnd, DSSCL_PRIORITY))
+		return AUDIOINIT_FAIL;
+	return AUDIO_SUCCESS;
+}
+
 ARESULT loadFileIntoDefaultBuffer( LPWSTR filename, LPDIRECTSOUNDBUFFER &directSoundBuffer, LPDIRECTSOUND8 &directSoundDevice )
 {
 	//TODO return codes
@@ -16,7 +27,7 @@ ARESULT loadFileIntoDefaultBuffer( LPWSTR filename, LPDIRECTSOUNDBUFFER &directS
 	
 	// Set up Buffer description based on the file
 	DSBUFFERDESC dsbd;
-	if(getBufferDescForFilesize(waveFile->GetSize(), &dsbd, &wfx) != BUFFSETUP_SUCCESS){return BUFFSETUP_BUFFERDESC_FAIL;}
+	if(getBufferDescForFilesize(waveFile->GetSize(), &dsbd, &wfx) != AUDIO_SUCCESS){return BUFFSETUP_BUFFERDESC_FAIL;}
 
 	// Create buffer from decription
 	if FAILED(directSoundDevice->CreateSoundBuffer(&dsbd, &directSoundBuffer, NULL)){return BUFFSETUP_CREATEBUFF_FAIL;}
@@ -36,7 +47,7 @@ ARESULT loadFileIntoDefaultBuffer( LPWSTR filename, LPDIRECTSOUNDBUFFER &directS
 	// Unlock the buffer
 	if(directSoundBuffer->Unlock(buffer,bufferSize,NULL,NULL)){return BUFFSETUP_UNLOCKBUFF_FAIL;}
 
-	return BUFFSETUP_SUCCESS;
+	return AUDIO_SUCCESS;
 }
 
 WAVEFORMATEX getDefaultWaveFormat(){
@@ -58,5 +69,5 @@ ARESULT getBufferDescForFilesize(DWORD filesize, DSBUFFERDESC* dsbd, WAVEFORMATE
 	dsbd->dwBufferBytes = filesize;
 	dsbd->guid3DAlgorithm = GUID_NULL;
 	dsbd->lpwfxFormat = wfx;
-	return BUFFSETUP_SUCCESS;
+	return AUDIO_SUCCESS;
 }

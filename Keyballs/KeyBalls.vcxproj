@@ -14,6 +14,8 @@
     <ClCompile Include="audio\audio.cpp" />
     <ClCompile Include="audio\SDKwavefile.cpp" />
     <ClCompile Include="graphics\graphics.cpp" />
+    <ClCompile Include="input\input.cpp" />
+    <ClCompile Include="main\game.cpp" />
     <ClCompile Include="main\winmain.cpp" />
     <ClCompile Include="util\debug.cpp" />
   </ItemGroup>
@@ -21,6 +23,8 @@
     <ClInclude Include="audio\audio.h" />
     <ClInclude Include="audio\SDKwavefile.h" />
     <ClInclude Include="graphics\graphics.h" />
+    <ClInclude Include="input\input.h" />
+    <ClInclude Include="main\game.h" />
     <ClInclude Include="main\includes.h" />
     <ClInclude Include="util\debug.h" />
   </ItemGroup>

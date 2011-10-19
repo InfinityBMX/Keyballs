@@ -13,6 +13,9 @@
     <Filter Include="graphics">
       <UniqueIdentifier>{f10cf769-63ee-49fb-a40a-6d6b487e92c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="input">
+      <UniqueIdentifier>{d3631413-69e7-4667-99a1-20470f58e041}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="audio\audio.cpp">
@@ -30,6 +33,12 @@
     <ClCompile Include="util\debug.cpp">
       <Filter>util</Filter>
     </ClCompile>
+    <ClCompile Include="input\input.cpp">
+      <Filter>input</Filter>
+    </ClCompile>
+    <ClCompile Include="main\game.cpp">
+      <Filter>main</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio\audio.h">
@@ -46,6 +55,12 @@
     </ClInclude>
     <ClInclude Include="util\debug.h">
       <Filter>util</Filter>
+    </ClInclude>
+    <ClInclude Include="main\game.h">
+      <Filter>main</Filter>
+    </ClInclude>
+    <ClInclude Include="input\input.h">
+      <Filter>input</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

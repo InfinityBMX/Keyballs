@@ -11,4 +11,6 @@
 #include "../audio/audio.h"
 #include "../graphics/graphics.h"
 #include "../util/debug.h"
+#include "../input/input.h"
+#include "../main/game.h"
 #endif
