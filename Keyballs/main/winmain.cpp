@@ -124,11 +124,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
 		// The user hit the close button, close the application
 		case WM_DESTROY:
+			GameEnd(hWnd);
 			ShutdownDirect3D();
 			ShutdownDirectSound();
 			ShutdownDirectInput();
 
-			GameEnd(hWnd);
+			
 			PostQuitMessage(0);
 			return 0;
 	}

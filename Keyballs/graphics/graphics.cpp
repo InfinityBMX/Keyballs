@@ -26,7 +26,7 @@ int InitDirect3D(HWND hWnd, int width, int height, int fullscreen)
 
 	//Create the D3D device and the swap chain
 	HRESULT hr = D3D10CreateDeviceAndSwapChain(NULL,
-					D3D10_DRIVER_TYPE_REFERENCE,
+					D3D10_DRIVER_TYPE_HARDWARE,
 					NULL,
 					0,
 					D3D10_SDK_VERSION,
