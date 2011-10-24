@@ -1,8 +1,9 @@
 #define APPTITLE L"KeyBalls"
 #define FULLSCREEN 0
-#define SCREEN_WIDTH 1280
-#define SCREEN_HEIGHT 720
+#define SCREEN_WIDTH 640
+#define SCREEN_HEIGHT 480
 
 // Function Prototypes
-int InitGame(HWND);
-void GameRun(HWND);
+int InitGame(HWND hWnd);
+void GameRun(HWND hWnd);
+void GameEnd(HWND hWnd);

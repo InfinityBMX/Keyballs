@@ -1,5 +1,5 @@
-#ifndef _DXGRAPHICS_H
-#define _DXGRAPHICS_H
+#ifndef _GRAPHICS_H
+#define _GRAPHICS_H
 
 //function prototypes
 int InitDirect3D(HWND, int, int, int);

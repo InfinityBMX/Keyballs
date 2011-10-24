@@ -1,5 +1,5 @@
-#ifndef INCLUDES_H
-#define INCLUDES_H
+#ifndef _INCLUDES_H
+#define _INCLUDES_H
 #include <Windows.h>
 #include <tchar.h>
 #include "../../include\DXUT.h"

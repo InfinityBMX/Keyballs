@@ -1,13 +1,12 @@
 //Include the Windows header file, needed for all Windows applications
 #include "../main/includes.h"
 
-// DirectInput global vars
-LPDIRECTINPUT8 directInputObject;
-
 // forward declarations
 ATOM RegWindow(HINSTANCE hInstance);
 LRESULT CALLBACK WndProc( HWND, UINT, WPARAM, LPARAM );
 void ShutdownDirect3D();
+void ShutdownDirectSound();
+void ShutdownDirectInput();
 
 // This is winmain, the main entry point for Windows applications
 int APIENTRY _tWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow )
@@ -47,7 +46,13 @@ int APIENTRY _tWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpC
 	UpdateWindow(hWnd);
 
 	// Initialize the Direct Input Device
-	if FAILED(DirectInput8Create(hInstance, DIRECTINPUT_VERSION, IID_IDirectInput8, (void**)&directInputObject, NULL)){debug(L"Failed");return false;}
+	if (!InitDirectInput(hWnd)){return FALSE;}
+
+	// Initialize the Direct3D object
+	if(!InitDirect3D(hWnd, SCREEN_WIDTH, SCREEN_HEIGHT, FULLSCREEN)){return FALSE;}
+	
+	// Initialize the DirectSound object
+	if(InitSound(hWnd) != AUDIO_SUCCESS){return FALSE;}
 
 	// Initialize the game
 	if(!InitGame(hWnd))
@@ -117,22 +122,15 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	// Check for any available messages from the queue
 	switch(message)
 	{
-		// Allow the user to press the Escape key to end the application
-		case WM_KEYDOWN:
-			switch(wParam)
-			{
-				// Check if the user hit the Escape key
-				case VK_ESCAPE:
-					PostQuitMessage(0);
-				break;
-			}
-		break;
-
 		// The user hit the close button, close the application
 		case WM_DESTROY:
 			ShutdownDirect3D();
+			ShutdownDirectSound();
+			ShutdownDirectInput();
+
+			GameEnd(hWnd);
 			PostQuitMessage(0);
-		break;
+			return 0;
 	}
 
 	// Always return the message to the default window procedure for further processing
@@ -164,4 +162,20 @@ void ShutdownDirect3D()
 	{
 		pD3DDevice -> Release();
 	}
+}
+
+void ShutdownDirectSound()
+{
+	if(directSoundDevice != NULL)
+		directSoundDevice->Release();
+}
+
+void ShutdownDirectInput()
+{
+	// Release input objects
+	KillKeyboard();
+	KillMouse();
+	if(dInputObject != NULL)
+		dInputObject->Release();
+
 }

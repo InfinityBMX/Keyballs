@@ -22,7 +22,7 @@ int InitDirect3D(HWND hWnd, int width, int height, int fullscreen)
 	swapChainDesc.OutputWindow = hWnd;
 	swapChainDesc.SampleDesc.Count = 1;
 	swapChainDesc.SampleDesc.Quality = 0;
-	swapChainDesc.Windowed = TRUE;
+	swapChainDesc.Windowed = !fullscreen;
 
 	//Create the D3D device and the swap chain
 	HRESULT hr = D3D10CreateDeviceAndSwapChain(NULL,

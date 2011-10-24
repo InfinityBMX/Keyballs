@@ -1,5 +1,5 @@
-#ifndef AUDIO_H
-#define AUDIO_H
+#ifndef _AUDIO_H
+#define _AUDIO_H
 
 // Audio Return Codes
 typedef short ARESULT;
