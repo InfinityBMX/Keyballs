@@ -1,7 +1,9 @@
 #include "../main/includes.h"
 
-LPDIRECTSOUNDBUFFER dsbSample = NULL;
-LPDIRECTSOUNDBUFFER dsbRunLikeHell = NULL;
+//LPDIRECTSOUNDBUFFER dsbSample = NULL;
+//LPDIRECTSOUNDBUFFER dsbRunLikeHell = NULL;
+SoundObject* soSample = NULL;
+SoundObject* soRunLikeHell = NULL;
 
 int InitGame(HWND hWnd)
 {
@@ -17,17 +19,9 @@ int InitGame(HWND hWnd)
 		return FALSE;
 	}
 
-	if(loadFileIntoDefaultBuffer(L"../media/sample.wav", dsbSample, directSoundDevice) != AUDIO_SUCCESS)
-	{
-		debug(L"Error loading Sample.wav");
-		return FALSE;
-	}
-	if(loadFileIntoDefaultBuffer(L"../media/Run Like Hell.wav", dsbRunLikeHell, directSoundDevice) != AUDIO_SUCCESS)
-	{
-		debug(L"Error loading Run Like Hell.wav");
-		return FALSE;
-	}
-	
+	soSample = new SoundObject(L"../media/sample.wav");
+	SoundObject(L"../media/sample.wav");
+
 	return TRUE;
 }
 
@@ -51,11 +45,11 @@ void GameRun(HWND hWnd)
 	}*/
 	Render();
 	if(KeyDown(DIK_DOWN))
-		dsbSample->Play(0,0,0);
+		soSample->play();
 	if(KeyDown(DIK_UP))
-		dsbSample->Stop();
-	if(KeyDown(DIK_RIGHT))
-		dsbSample->Restore();
+		soSample->stop();
+//	if(KeyDown(DIK_RIGHT))
+//		dsbSample->Restore();
 	if(KeyDown(DIK_ESCAPE))
 		PostMessage(hWnd, WM_DESTROY, 0, 0);
 	if(MouseButton(0))
@@ -64,9 +58,12 @@ void GameRun(HWND hWnd)
 
 void GameEnd(HWND hWnd)
 {
-	if(dsbSample != NULL)
-		dsbSample->Release();
+//	if(dsbSample != NULL)
+//		dsbSample->Release();
 
-	if(dsbRunLikeHell != NULL)
-		dsbRunLikeHell->Release();
+//	if(dsbRunLikeHell != NULL)
+//		dsbRunLikeHell->Release();
+
+	soSample->kill();
+	soRunLikeHell->kill();
 }

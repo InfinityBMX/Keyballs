@@ -13,8 +13,35 @@ typedef short ARESULT;
 #define BUFFSETUP_UNLOCKBUFF_FAIL	(ARESULT)7
 #define AUDIOINIT_FAIL				(ARESULT)8
 
+//SoundObject Class
+class SoundObject
+{
+public:
+	//Methods
+	SoundObject();
+	SoundObject(LPWSTR lpfilename);
+	void kill();
+	void play();
+	void playOnce();
+	void stop();
+
+private:
+	//Data Members
+	LPDIRECTSOUNDBUFFER soundBuffer;
+	//string filename;
+	int volume;
+	bool fadeDown;
+	bool fadeUp;
+	bool playing;
+
+	//Private Methods
+//	ARESULT loadFileIntoBuffer( LPWSTR filename, LPDIRECTSOUNDBUFFER &directSoundBuffer, LPDIRECTSOUND8 &directSoundDevice );
+	ARESULT loadFile(LPWSTR lpfilename);
+};
+
 // Function prototypes
 ARESULT InitSound(HWND hWnd);
+//Move to class private
 ARESULT loadFileIntoDefaultBuffer( LPWSTR filename, LPDIRECTSOUNDBUFFER &directSoundBuffer, LPDIRECTSOUND8 &directSoundDevice );
 WAVEFORMATEX getDefaultWaveFormat();
 ARESULT getBufferDescForFilesize(DWORD filesize, DSBUFFERDESC* dsbd, WAVEFORMATEX* wfx);

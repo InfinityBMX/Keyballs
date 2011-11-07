@@ -11,7 +11,56 @@ ARESULT InitSound(HWND hWnd)
 	return AUDIO_SUCCESS;
 }
 
-ARESULT loadFileIntoDefaultBuffer( LPWSTR filename, LPDIRECTSOUNDBUFFER &directSoundBuffer, LPDIRECTSOUND8 &directSoundDevice )
+//loadFileIntoDefaultBuffer(L"../media/sample.wav", dsbSample, directSoundDevice)
+//Constructor
+SoundObject::SoundObject(LPWSTR lpfilename){
+	soundBuffer = NULL;
+	fadeDown = false;
+	fadeUp = false;
+	playing = false;
+	volume = 0;
+	loadFile(lpfilename);
+}
+
+ARESULT SoundObject::loadFile(LPWSTR filename){
+	// Open wave file
+	CWaveFile* waveFile = new CWaveFile();
+	waveFile->Open(filename, NULL, WAVEFILE_READ);
+	if(waveFile->GetSize() == 0){return BUFFSETUP_FILE_OPEN_FAIL;}
+
+	//TODO Add code to set up buffer description
+	
+	// Set up Wave format description
+	WAVEFORMATEX wfx = getDefaultWaveFormat();
+	
+	// Set up Buffer description based on the file
+	DSBUFFERDESC dsbd;
+	if(getBufferDescForFilesize(waveFile->GetSize(), &dsbd, &wfx) != AUDIO_SUCCESS){return BUFFSETUP_BUFFERDESC_FAIL;}
+
+	// Create buffer from decription
+	if FAILED(directSoundDevice->CreateSoundBuffer(&dsbd, &soundBuffer, NULL)){return BUFFSETUP_CREATEBUFF_FAIL;}
+
+	// Lock the buffer
+	VOID* buffer = NULL;
+	DWORD bufferSize = 0;
+	if FAILED(soundBuffer->Lock(0,waveFile->GetSize(),&buffer,&bufferSize,NULL,NULL,DSBLOCK_ENTIREBUFFER)){return BUFFSETUP_LOCKBUFF_FAIL;}
+
+	// Reset file to begining
+	if FAILED(waveFile->ResetFile()){return BUFFSETUP_RESETFILE_FAIL;}
+
+	// Read file into buffer
+	DWORD bytesRead = 0;
+	if FAILED(waveFile->Read((BYTE*) buffer, bufferSize, &bytesRead)){return BUFFSETUP_READFILE_FAIL;}
+	
+	// Unlock the buffer
+	if(soundBuffer->Unlock(buffer,bufferSize,NULL,NULL)){return BUFFSETUP_UNLOCKBUFF_FAIL;}
+
+	delete waveFile;
+
+	return AUDIO_SUCCESS;
+}
+
+ARESULT loadFileIntoDefaultBuffer(LPWSTR filename, LPDIRECTSOUNDBUFFER &directSoundBuffer, LPDIRECTSOUND8 &directSoundDevice)
 {
 	//TODO return codes
 
@@ -47,7 +96,31 @@ ARESULT loadFileIntoDefaultBuffer( LPWSTR filename, LPDIRECTSOUNDBUFFER &directS
 	// Unlock the buffer
 	if(directSoundBuffer->Unlock(buffer,bufferSize,NULL,NULL)){return BUFFSETUP_UNLOCKBUFF_FAIL;}
 
+	delete waveFile;
+
 	return AUDIO_SUCCESS;
+}
+
+void SoundObject::kill(){
+	this->soundBuffer->Release();
+}
+
+void SoundObject::play(){
+	if(!playing){
+		soundBuffer->Play(0,0,0);
+		playing = true;
+	}
+}
+
+void SoundObject::stop(){
+	if(playing){
+		soundBuffer->Stop();
+		playing = false;
+	}
+}
+
+void SoundObject::playOnce(){
+	soundBuffer->Play(0,0,0);
 }
 
 WAVEFORMATEX getDefaultWaveFormat(){
@@ -71,3 +144,4 @@ ARESULT getBufferDescForFilesize(DWORD filesize, DSBUFFERDESC* dsbd, WAVEFORMATE
 	dsbd->lpwfxFormat = wfx;
 	return AUDIO_SUCCESS;
 }
+
