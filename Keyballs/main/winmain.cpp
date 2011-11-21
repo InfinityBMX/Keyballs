@@ -128,7 +128,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 			ShutdownDirect3D();
 			ShutdownDirectSound();
 			ShutdownDirectInput();
-
 			
 			PostQuitMessage(0);
 			return 0;

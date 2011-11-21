@@ -20,7 +20,6 @@ int InitGame(HWND hWnd)
 	}
 
 	soSample = new SoundObject(L"../media/sample.wav");
-	SoundObject(L"../media/sample.wav");
 
 	return TRUE;
 }
@@ -45,15 +44,19 @@ void GameRun(HWND hWnd)
 	}*/
 	Render();
 	if(KeyDown(DIK_DOWN))
-		soSample->play();
+		soSample->playLooping();
 	if(KeyDown(DIK_UP))
 		soSample->stop();
-//	if(KeyDown(DIK_RIGHT))
-//		dsbSample->Restore();
+	if(KeyDown(DIK_RIGHT))
+		soSample->fadeOut();
+	if(KeyDown(DIK_LEFT))
+		soSample->fadeIn();
 	if(KeyDown(DIK_ESCAPE))
 		PostMessage(hWnd, WM_DESTROY, 0, 0);
 	if(MouseButton(0))
 		PostMessage(hWnd, WM_DESTROY, 0, 0);
+
+	soSample->process();
 }
 
 void GameEnd(HWND hWnd)
@@ -64,6 +67,6 @@ void GameEnd(HWND hWnd)
 //	if(dsbRunLikeHell != NULL)
 //		dsbRunLikeHell->Release();
 
-	soSample->kill();
-	soRunLikeHell->kill();
+//	soSample->kill();
+//	soRunLikeHell->kill();
 }

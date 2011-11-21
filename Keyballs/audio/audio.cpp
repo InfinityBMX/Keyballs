@@ -1,6 +1,7 @@
 #include "../main/includes.h"
 
 LPDIRECTSOUND8 directSoundDevice;
+SoundObject* soundObjectArray;
 
 ARESULT InitSound(HWND hWnd)
 {
@@ -18,8 +19,9 @@ SoundObject::SoundObject(LPWSTR lpfilename){
 	fadeDown = false;
 	fadeUp = false;
 	playing = false;
-	volume = 0;
+	volume = DSBVOLUME_MAX;
 	loadFile(lpfilename);
+	this->soundBuffer->SetVolume(volume);
 }
 
 ARESULT SoundObject::loadFile(LPWSTR filename){
@@ -105,9 +107,9 @@ void SoundObject::kill(){
 	this->soundBuffer->Release();
 }
 
-void SoundObject::play(){
+void SoundObject::playLooping(){
 	if(!playing){
-		soundBuffer->Play(0,0,0);
+		soundBuffer->Play(0,0,DSBPLAY_LOOPING);
 		playing = true;
 	}
 }
@@ -121,6 +123,44 @@ void SoundObject::stop(){
 
 void SoundObject::playOnce(){
 	soundBuffer->Play(0,0,0);
+}
+
+void SoundObject::process(){
+	// fadeDown to -10000
+	if(this->fadeDown)
+	{
+		this->fadeUp = false;
+		if(this->volume == DSBVOLUME_MIN)
+			this->fadeDown = false;
+		else
+			this->volume--;
+	}
+	// fadeUp to 0
+	if(this->fadeUp)
+	{
+		this->fadeDown = false;
+		if(this->volume == DSBVOLUME_MAX)
+			this->fadeUp = false;
+		else
+			this->volume++;
+	}
+	this->soundBuffer->SetVolume(this->volume);
+}
+
+void SoundObject::fadeOut(){
+	this->fadeDown = true;
+	this->fadeUp = false;
+}
+
+void SoundObject::fadeIn(){
+	this->fadeUp = true;
+	this->fadeDown = false;
+}
+
+void SoundObject::reset(){
+	this->soundBuffer->Stop();
+	this->soundBuffer->SetCurrentPosition(0);
+	this->playing = false;
 }
 
 WAVEFORMATEX getDefaultWaveFormat(){
@@ -138,10 +178,13 @@ WAVEFORMATEX getDefaultWaveFormat(){
 ARESULT getBufferDescForFilesize(DWORD filesize, DSBUFFERDESC* dsbd, WAVEFORMATEX* wfx){
 	ZeroMemory(dsbd, sizeof(DSBUFFERDESC));
 	dsbd->dwSize = sizeof(DSBUFFERDESC);
-	dsbd->dwFlags = 0;
+	dsbd->dwFlags = DSBCAPS_CTRLVOLUME;
 	dsbd->dwBufferBytes = filesize;
 	dsbd->guid3DAlgorithm = GUID_NULL;
 	dsbd->lpwfxFormat = wfx;
 	return AUDIO_SUCCESS;
 }
 
+void RenderSound(){
+
+}
