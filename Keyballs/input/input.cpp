@@ -5,12 +5,12 @@
 
 LPDIRECTINPUT8 dInputObject;
 LPDIRECTINPUTDEVICE8 diMouse;
-LPDIRECTINPUTDEVICE8 diKeyboard;
+//LPDIRECTINPUTDEVICE8 diKeyboard;
 LPDIRECTINPUTDEVICE8 diJoystick;
 DIMOUSESTATE mouseState;
 
 //keyboard input
-char keys[256];
+//char keys[256];
 
 int InitDirectInput(HWND hWnd)
 {
@@ -31,9 +31,9 @@ int InitDirectInput(HWND hWnd)
 		return 0;
 
 	//initialize the keyboard
-	result = dInputObject->CreateDevice(GUID_SysKeyboard, &diKeyboard, NULL);
-	if(result != DI_OK)
-		return 0;
+	//result = dInputObject->CreateDevice(GUID_SysKeyboard, &diKeyboard, NULL);
+	//if(result != DI_OK)
+	//	return 0;
 
 	//clean return
 	return 1;
@@ -91,20 +91,24 @@ void KillMouse()
 	}
 }
 
-int InitKeyboard(HWND hWnd)
+int Keyboard::InitKeyboard(HWND hWnd)
 {
+	HRESULT result = dInputObject->CreateDevice(GUID_SysKeyboard, &this->keyboard, NULL);
+	if(result != DI_OK)
+		return 0;
+
 	//set the data format for keyboard input
-	HRESULT result = diKeyboard->SetDataFormat(&c_dfDIKeyboard);
+	result = this->keyboard->SetDataFormat(&c_dfDIKeyboard);
 	if(result != DI_OK)
 		return 0;
 
 	//set the cooperative level
-	result = diKeyboard->SetCooperativeLevel(hWnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
+	result = this->keyboard->SetCooperativeLevel(hWnd, DISCL_NONEXCLUSIVE | DISCL_FOREGROUND);
 	if(result != DI_OK)
 		return 0;
 
 	//acquire the keyboard
-	result = diKeyboard->Acquire();
+	result = this->keyboard->Acquire();
 	if(result != DI_OK)
 		return 0;
 
@@ -112,22 +116,30 @@ int InitKeyboard(HWND hWnd)
 	return 1;
 }
 
-void PollKeyboard()
+void Keyboard::PollKeyboard()
 {
-	diKeyboard->GetDeviceState(sizeof(keys), (LPVOID)&keys);
+	keyboard->GetDeviceState(sizeof(keys), (LPVOID)&this->keys);
 }
 
-int KeyDown(int key)
+int Keyboard::KeyDown(int key)
 {
-	return (keys[key] & 0x80);
+	return (this->keys[key] & 0x80);
 }
 
-void KillKeyboard()
+void Keyboard::KillKeyboard()
 {
-	if(diKeyboard != NULL)
+	if(keyboard != NULL)
 	{
-		diKeyboard->Unacquire();
-		diKeyboard->Release();
-		diKeyboard = NULL;
+		keyboard->Unacquire();
+		keyboard->Release();
+		keyboard = NULL;
 	}
+}
+
+Keyboard::Keyboard(HWND hWnd)
+{
+	if(dInputObject == NULL){
+		// Do stuff when no DI object initialized
+	}
+	this->InitKeyboard(hWnd);
 }

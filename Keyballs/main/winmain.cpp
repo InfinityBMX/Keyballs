@@ -173,7 +173,7 @@ void ShutdownDirectSound()
 void ShutdownDirectInput()
 {
 	// Release input objects
-	KillKeyboard();
+	// KillKeyboard();
 	KillMouse();
 	if(dInputObject != NULL)
 		dInputObject->Release();

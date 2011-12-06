@@ -4,6 +4,7 @@
 //LPDIRECTSOUNDBUFFER dsbRunLikeHell = NULL;
 SoundObject* soSample = NULL;
 SoundObject* soRunLikeHell = NULL;
+Keyboard* keyboard = NULL;
 
 int InitGame(HWND hWnd)
 {
@@ -13,11 +14,13 @@ int InitGame(HWND hWnd)
 		return FALSE;
 	}
 
-	if(!InitKeyboard(hWnd))
-	{
-		debug(L"Error initializing the keyboard");
-		return FALSE;
-	}
+	keyboard = new Keyboard(hWnd);
+
+	//if(!InitKeyboard(hWnd))
+	//{
+	//	debug(L"Error initializing the keyboard");
+	//	return FALSE;
+	//}
 
 	soSample = new SoundObject(L"../media/sample.wav");
 
@@ -27,7 +30,7 @@ int InitGame(HWND hWnd)
 void GameRun(HWND hWnd)
 {
 	PollMouse();
-	PollKeyboard();
+	keyboard->PollKeyboard();
 	//When sample stops playing, play run like hell once
 /*	if(!played)
 	{
@@ -43,15 +46,15 @@ void GameRun(HWND hWnd)
 			dsbRunLikeHell->Play(0,0,0);
 	}*/
 	Render();
-	if(KeyDown(DIK_DOWN))
+	if(keyboard->KeyDown(DIK_DOWN))
 		soSample->playLooping();
-	if(KeyDown(DIK_UP))
+	if(keyboard->KeyDown(DIK_UP))
 		soSample->stop();
-	if(KeyDown(DIK_RIGHT))
+	if(keyboard->KeyDown(DIK_RIGHT))
 		soSample->fadeOut();
-	if(KeyDown(DIK_LEFT))
+	if(keyboard->KeyDown(DIK_LEFT))
 		soSample->fadeIn();
-	if(KeyDown(DIK_ESCAPE))
+	if(keyboard->KeyDown(DIK_ESCAPE))
 		PostMessage(hWnd, WM_DESTROY, 0, 0);
 	if(MouseButton(0))
 		PostMessage(hWnd, WM_DESTROY, 0, 0);
