@@ -46,14 +46,18 @@ void GameRun(HWND hWnd)
 			dsbRunLikeHell->Play(0,0,0);
 	}*/
 	Render();
-	if(keyboard->KeyDown(DIK_DOWN))
-		soSample->playLooping();
 	if(keyboard->KeyDown(DIK_UP))
+		soSample->playLooping();
+	if(keyboard->KeyDown(DIK_DOWN))
 		soSample->stop();
-	if(keyboard->KeyDown(DIK_RIGHT))
-		soSample->fadeOut();
 	if(keyboard->KeyDown(DIK_LEFT))
+		soSample->fadeOut();
+	if(keyboard->KeyDown(DIK_RIGHT))
 		soSample->fadeIn();
+	if(keyboard->KeyDown(DIK_M))
+		soSample->mute();
+	if(keyboard->KeyDown(DIK_U))
+		soSample->unmute();
 	if(keyboard->KeyDown(DIK_ESCAPE))
 		PostMessage(hWnd, WM_DESTROY, 0, 0);
 	if(MouseButton(0))

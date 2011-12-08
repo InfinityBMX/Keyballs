@@ -30,15 +30,19 @@ public:
 	void fadeIn();
 	void fadeOut();
 	void reset();
+	void mute();
+	void unmute();
 
 private:
 	//Data Members
 	LPDIRECTSOUNDBUFFER soundBuffer;
 	//string filename;
 	long volume;
+	bool muted;
 	bool fadeDown;
 	bool fadeUp;
 	bool playing;
+	long lastVolume;
 
 	//Private Methods
 	ARESULT loadFile(LPWSTR lpfilename);

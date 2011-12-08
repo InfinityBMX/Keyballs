@@ -15,12 +15,14 @@ ARESULT InitSound(HWND hWnd)
 //loadFileIntoDefaultBuffer(L"../media/sample.wav", dsbSample, directSoundDevice)
 //Constructor
 SoundObject::SoundObject(LPWSTR lpfilename){
-	soundBuffer = NULL;
-	fadeDown = false;
-	fadeUp = false;
-	playing = false;
-	volume = DSBVOLUME_MAX;
-	loadFile(lpfilename);
+	this->soundBuffer = NULL;
+	this->fadeDown = false;
+	this->fadeUp = false;
+	this->playing = false;
+	this->muted = false;
+	this->volume = DSBVOLUME_MAX;
+	this->lastVolume = DSBVOLUME_MAX;
+	this->loadFile(lpfilename);
 	this->soundBuffer->SetVolume(volume);
 }
 
@@ -161,6 +163,27 @@ void SoundObject::reset(){
 	this->soundBuffer->Stop();
 	this->soundBuffer->SetCurrentPosition(0);
 	this->playing = false;
+}
+
+void SoundObject::mute(){
+	if(!(this->muted)){
+		this->muted = true;
+		this->lastVolume = this->volume;
+		this->volume = DSBVOLUME_MIN;
+		this->fadeUp = false;
+		this->fadeDown = false;
+		this->soundBuffer->SetVolume(this->volume);
+	}
+}
+
+void SoundObject::unmute(){
+	if(this->muted){
+		this->volume = this->lastVolume;
+		this->soundBuffer->SetVolume(this->volume);
+		this->muted = false;
+		this->fadeUp = false;
+		this->fadeDown = false;
+	}
 }
 
 WAVEFORMATEX getDefaultWaveFormat(){
