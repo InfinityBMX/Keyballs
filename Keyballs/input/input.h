@@ -5,6 +5,7 @@
 #define DIRECTINPUT_VERSION 0x0800
 #endif
 #include <dinput.h>
+#include "../Include/DXUT.h"
 
 #define BUTTON_DOWN(obj, button) (obj.rgbButtons[button] & 0x80)
 

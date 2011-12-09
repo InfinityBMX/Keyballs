@@ -9,9 +9,9 @@
 // Copyright (c) Microsoft Corp. All rights reserved.
 //-----------------------------------------------------------------------------
 #define STRICT
-//#include "DXUT.h"
-#include "../Include/DXUT.h"
 #include "SDKwavefile.h"
+//#include "DXUT.h"
+//#include "../Include/DXUT.h"
 //#include "../main/includes.h"
 #undef min // use __min instead
 #undef max // use __max instead

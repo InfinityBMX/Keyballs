@@ -1,6 +1,6 @@
-//#include "input.h"
+#include "input.h"
 //#include "../util/debug.h"
-#include "../main/includes.h"
+//#include "../main/includes.h"
 
 //ABOVE BROKEN
 
