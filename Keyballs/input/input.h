@@ -1,8 +1,12 @@
 #ifndef _INPUT_H
 #define _INPUT_H
 
+#ifndef DIRECTINPUT_VERSION
 #define DIRECTINPUT_VERSION 0x0800
+#endif
 #include <dinput.h>
+
+#define BUTTON_DOWN(obj, button) (obj.rgbButtons[button] & 0x80)
 
 //function prototypes
 int InitDirectInput(HWND hWnd);

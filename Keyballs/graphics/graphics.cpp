@@ -1,4 +1,5 @@
-#include "../main/includes.h"
+//#include "../main/includes.h"
+#include "graphics.h"
 
 //variable declarations
 ID3D10Device* pD3DDevice = NULL;

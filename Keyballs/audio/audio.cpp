@@ -1,4 +1,5 @@
-#include "../main/includes.h"
+//#include "../main/includes.h"
+#include "audio.h"
 
 LPDIRECTSOUND8 directSoundDevice;
 SoundObject* soundObjectArray;

@@ -1,5 +1,14 @@
 //Include the Windows header file, needed for all Windows applications
-#include "../main/includes.h"
+//#include "../main/includes.h"
+#include <Windows.h>
+#include <tchar.h>
+//#include <d3dx10.h>
+//#include <d3d10.h>
+//#include <dinput.h>
+#include "../audio/audio.h"
+#include "../graphics/graphics.h"
+#include "../input/input.h"
+#include "../main/game.h"
 
 // forward declarations
 ATOM RegWindow(HINSTANCE hInstance);

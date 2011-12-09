@@ -1,7 +1,8 @@
-#include "input.h"
-#include "../util/debug.h"
+//#include "input.h"
+//#include "../util/debug.h"
+#include "../main/includes.h"
 
-#define BUTTON_DOWN(obj, button) (obj.rgbButtons[button] & 0x80)
+//ABOVE BROKEN
 
 LPDIRECTINPUT8 dInputObject;
 LPDIRECTINPUTDEVICE8 diMouse;

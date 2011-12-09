@@ -1,5 +1,9 @@
 #ifndef _AUDIO_H
 #define _AUDIO_H
+// Includes
+#include <dsound.h>
+//#include "../Include/DXUT.h" // might need
+#include "SDKwavefile.h"
 
 // Audio Return Codes
 typedef short ARESULT;

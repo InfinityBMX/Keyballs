@@ -1,4 +1,8 @@
-#include "../main/includes.h"
+//#include "../main/includes.h"
+#include "../audio/audio.h"
+#include "../input/input.h"
+#include "../util/debug.h"
+#include "../graphics/graphics.h"
 
 //LPDIRECTSOUNDBUFFER dsbSample = NULL;
 //LPDIRECTSOUNDBUFFER dsbRunLikeHell = NULL;
