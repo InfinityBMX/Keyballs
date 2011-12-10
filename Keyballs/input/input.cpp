@@ -2,8 +2,6 @@
 //#include "../util/debug.h"
 //#include "../main/includes.h"
 
-//ABOVE BROKEN
-
 LPDIRECTINPUT8 dInputObject;
 LPDIRECTINPUTDEVICE8 diMouse;
 //LPDIRECTINPUTDEVICE8 diKeyboard;

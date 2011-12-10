@@ -3,7 +3,7 @@
 #include <Windows.h>
 #include <tchar.h>
 //#include <d3dx10.h>
-//#include <d3d10.h>
+//#include <d3d10_1.h>
 //#include <dinput.h>
 #include "../audio/audio.h"
 #include "../graphics/graphics.h"
@@ -16,6 +16,9 @@ LRESULT CALLBACK WndProc( HWND, UINT, WPARAM, LPARAM );
 void ShutdownDirect3D();
 void ShutdownDirectSound();
 void ShutdownDirectInput();
+
+// Globals
+Game *game = NULL;
 
 // This is winmain, the main entry point for Windows applications
 int APIENTRY _tWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpCmdLine, int nCmdShow )
@@ -63,12 +66,15 @@ int APIENTRY _tWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpC
 	// Initialize the DirectSound object
 	if(InitSound(hWnd) != AUDIO_SUCCESS){return FALSE;}
 
-	// Initialize the game
+/*	// Initialize the game
 	if(!InitGame(hWnd))
 	{
 		MessageBox(hWnd, L"Error initializing the game", L"Error", MB_OK);
 		return 0;
 	}
+*/
+	//Initialize the game
+	game = new Game(hWnd);
 
 	// main message loop:
 	int done = 0;
@@ -86,7 +92,7 @@ int APIENTRY _tWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpC
 		}
 		else
 			//process game loop
-			GameRun(hWnd);
+			game->GameRun();
 	}
 	return (int) msg.wParam;
 }
@@ -133,11 +139,12 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 	{
 		// The user hit the close button, close the application
 		case WM_DESTROY:
-			GameEnd(hWnd);
+			game->GameEnd();
 			ShutdownDirect3D();
 			ShutdownDirectSound();
 			ShutdownDirectInput();
-			
+			delete game;
+
 			PostQuitMessage(0);
 			return 0;
 	}

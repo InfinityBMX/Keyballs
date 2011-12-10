@@ -40,8 +40,12 @@ CWaveFile::~CWaveFile()
 {
     Close();
 
-    if( !m_bIsReadingFromMemory )
-        SAFE_DELETE_ARRAY( m_pwfx );
+/*    requires DXUT
+		if( !m_bIsReadingFromMemory )
+			SAFE_DELETE_ARRAY( m_pwfx );
+*/
+
+	
 }
 
 
