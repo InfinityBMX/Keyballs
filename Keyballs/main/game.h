@@ -22,6 +22,7 @@ private:
 	//Data Members
 	Keyboard* keyboard;
 	SoundObject* soSample;
+	Graphics* graphics;
 	HWND hWnd;
 };
 

@@ -27,6 +27,10 @@ SoundObject::SoundObject(LPWSTR lpfilename){
 	this->soundBuffer->SetVolume(volume);
 }
 
+SoundObject::~SoundObject(){
+	this->soundBuffer->Release();
+}
+
 ARESULT SoundObject::loadFile(LPWSTR filename){
 	// Open wave file
 	CWaveFile* waveFile = new CWaveFile();

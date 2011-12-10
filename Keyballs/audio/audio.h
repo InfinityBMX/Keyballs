@@ -26,6 +26,7 @@ public:
 	//Methods
 	SoundObject();
 	SoundObject(LPWSTR lpfilename);
+	~SoundObject();
 	void kill();
 	void playLooping();
 	void playOnce();

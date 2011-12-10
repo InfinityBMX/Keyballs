@@ -61,7 +61,7 @@ int APIENTRY _tWinMain( HINSTANCE hInstance, HINSTANCE hPrevInstance, LPTSTR lpC
 	if (!InitDirectInput(hWnd)){return FALSE;}
 
 	// Initialize the Direct3D object
-	if(!InitDirect3D(hWnd, SCREEN_WIDTH, SCREEN_HEIGHT, FULLSCREEN)){return FALSE;}
+//	if(!InitDirect3D(hWnd, SCREEN_WIDTH, SCREEN_HEIGHT, FULLSCREEN)){return FALSE;}
 	
 	// Initialize the DirectSound object
 	if(InitSound(hWnd) != AUDIO_SUCCESS){return FALSE;}
@@ -140,7 +140,7 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 		// The user hit the close button, close the application
 		case WM_DESTROY:
 			game->GameEnd();
-			ShutdownDirect3D();
+//			ShutdownDirect3D();
 			ShutdownDirectSound();
 			ShutdownDirectInput();
 			delete game;
@@ -151,33 +151,6 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 
 	// Always return the message to the default window procedure for further processing
 	return DefWindowProc(hWnd, message, wParam, lParam);
-}
-
-/*******************************************************
-* ShutdownDirect3D
-* Closes down and releases the resources for Direct3D
-* Inputs - void
-* Outputs - void
-********************************************************/
-void ShutdownDirect3D()
-{
-	// Release the rendertarget
-	if(pRenderTargetView)
-	{
-		pRenderTargetView -> Release();
-	}
-
-	// Release the swapchain
-	if(pSwapChain)
-	{
-		pSwapChain -> Release();
-	}
-
-	// Release the D3D device
-	if(pD3DDevice)
-	{
-		pD3DDevice -> Release();
-	}
 }
 
 void ShutdownDirectSound()

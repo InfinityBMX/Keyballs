@@ -4,6 +4,7 @@
 Game::Game(HWND hWnd){
 	this->keyboard = new Keyboard(hWnd);
 	this->hWnd = hWnd;
+	this->graphics = new Graphics(hWnd, SCREEN_WIDTH, SCREEN_HEIGHT, FULLSCREEN);
 	soSample = new SoundObject(L"../media/sample.wav");
 	//What if something fails?
 }
@@ -12,7 +13,7 @@ void Game::GameRun()
 {
 	this->keyboard->PollKeyboard();
 
-	Render();
+	graphics->Render();
 	if(this->keyboard->KeyDown(DIK_UP))
 		this->soSample->playLooping();
 	if(this->keyboard->KeyDown(DIK_DOWN))
@@ -35,4 +36,5 @@ void Game::GameEnd()
 {
 	delete this->soSample;
 	delete this->keyboard;
+	delete this->graphics;
 }
