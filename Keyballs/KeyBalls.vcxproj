@@ -13,6 +13,7 @@
   <ItemGroup>
     <ClCompile Include="audio\audio.cpp" />
     <ClCompile Include="audio\SDKwavefile.cpp" />
+    <ClCompile Include="graphics\printableObject.cpp" />
     <ClCompile Include="graphics\graphics.cpp" />
     <ClCompile Include="input\input.cpp" />
     <ClCompile Include="main\game.cpp" />
@@ -22,6 +23,7 @@
   <ItemGroup>
     <ClInclude Include="audio\audio.h" />
     <ClInclude Include="audio\SDKwavefile.h" />
+    <ClInclude Include="graphics\printableObject.h" />
     <ClInclude Include="graphics\graphics.h" />
     <ClInclude Include="input\input.h" />
     <ClInclude Include="main\game.h" />

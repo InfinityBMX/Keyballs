@@ -13,7 +13,7 @@ void Game::GameRun()
 {
 	this->keyboard->PollKeyboard();
 
-	graphics->Render();
+	graphics->Render(soSample->getTextOnly());
 	if(this->keyboard->KeyDown(DIK_UP))
 		this->soSample->playLooping();
 	if(this->keyboard->KeyDown(DIK_DOWN))
@@ -37,4 +37,9 @@ void Game::GameEnd()
 	delete this->soSample;
 	delete this->keyboard;
 	delete this->graphics;
+}
+
+HWND Game::GetHWND()
+{
+	return this->hWnd;
 }

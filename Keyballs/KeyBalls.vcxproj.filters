@@ -39,6 +39,9 @@
     <ClCompile Include="main\game.cpp">
       <Filter>main</Filter>
     </ClCompile>
+    <ClCompile Include="graphics\printableObject.cpp">
+      <Filter>graphics</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="audio\audio.h">
@@ -61,6 +64,9 @@
     </ClInclude>
     <ClInclude Include="input\input.h">
       <Filter>input</Filter>
+    </ClInclude>
+    <ClInclude Include="graphics\printableObject.h">
+      <Filter>graphics</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

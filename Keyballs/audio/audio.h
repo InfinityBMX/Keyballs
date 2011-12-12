@@ -2,8 +2,10 @@
 #define _AUDIO_H
 // Includes
 #include <dsound.h>
+#include <string>
 //#include "../Include/DXUT.h" // might need
 #include "SDKwavefile.h"
+#include "../graphics/printableObject.h"
 
 // Audio Return Codes
 typedef short ARESULT;
@@ -27,6 +29,10 @@ public:
 	SoundObject();
 	SoundObject(LPWSTR lpfilename);
 	~SoundObject();
+	PrintableObject getVolumeText();
+	PrintableObject getMuteText();
+	PrintableObject	getPrintText();
+	LPWSTR getTextOnly();
 	void kill();
 	void playLooping();
 	void playOnce();
@@ -37,10 +43,13 @@ public:
 	void reset();
 	void mute();
 	void unmute();
-
+	void updateText();
 private:
 	//Data Members
 	LPDIRECTSOUNDBUFFER soundBuffer;
+	PrintableObject* volumeText;
+	PrintableObject* muteText;
+	PrintableObject* printText;
 	//string filename;
 	long volume;
 	bool muted;

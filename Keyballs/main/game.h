@@ -17,6 +17,7 @@ public:
 	Game(HWND hWnd);
 	void GameRun();
 	void GameEnd();
+	HWND GetHWND();
 
 private:
 	//Data Members

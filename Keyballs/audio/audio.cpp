@@ -1,5 +1,6 @@
 //#include "../main/includes.h"
 #include "audio.h"
+#include <string>
 
 LPDIRECTSOUND8 directSoundDevice;
 SoundObject* soundObjectArray;
@@ -23,12 +24,21 @@ SoundObject::SoundObject(LPWSTR lpfilename){
 	this->muted = false;
 	this->volume = DSBVOLUME_MAX;
 	this->lastVolume = DSBVOLUME_MAX;
+	this->volumeText = new PrintableObject(25);
+	this->muteText = new PrintableObject(10);
+//	this->muteText->SetText(L"Muted");
+//	this->muteText->SetDisplay(false);
+	this->printText = new PrintableObject(35);
 	this->loadFile(lpfilename);
 	this->soundBuffer->SetVolume(volume);
+	this->updateText();
 }
 
 SoundObject::~SoundObject(){
 	this->soundBuffer->Release();
+	delete this->volumeText;
+	delete this->muteText;
+	delete this->printText;
 }
 
 ARESULT SoundObject::loadFile(LPWSTR filename){
@@ -152,6 +162,7 @@ void SoundObject::process(){
 			this->volume++;
 	}
 	this->soundBuffer->SetVolume(this->volume);
+	this->updateText();
 }
 
 void SoundObject::fadeOut(){
@@ -178,6 +189,7 @@ void SoundObject::mute(){
 		this->fadeUp = false;
 		this->fadeDown = false;
 		this->soundBuffer->SetVolume(this->volume);
+		this->updateText();
 	}
 }
 
@@ -213,6 +225,20 @@ ARESULT getBufferDescForFilesize(DWORD filesize, DSBUFFERDESC* dsbd, WAVEFORMATE
 	return AUDIO_SUCCESS;
 }
 
-void RenderSound(){
+PrintableObject SoundObject::getVolumeText(){
+	this->updateText();
+	return *this->volumeText;
+}
 
+LPWSTR SoundObject::getTextOnly(){
+	return this->volumeText->GetText();
+}
+
+void SoundObject::updateText(){
+	if(this->volume == DSBVOLUME_MAX)
+		wsprintf(this->volumeText->GetText(),L"Volume: MAX\n");
+	else
+		wsprintf(this->volumeText->GetText(),L"Volume: %li\n", this->volume);
+//	this->volumeText->SetText();
+	this->volumeText->SetDisplay(true);
 }
